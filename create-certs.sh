@@ -27,7 +27,7 @@ do
 				 -keypass datahub  >/dev/null 2>&1
 
 	# Create CSR, sign the key and import back into keystore
-	keytool -keystore secrets/$i.keystore.jks -alias $i -certreq -file tmp/$i.csr -storetype pkcs12 -storepass datahub -keypass datahub >/dev/null 2>&1
+	keytool -keystore secrets/$i.keystore.jks -alias $i -certreq -file tmp/$i.csr -storepass datahub -keypass datahub >/dev/null 2>&1
 
 	openssl x509 -req -CA tmp/datahub-ca.crt -CAkey tmp/datahub-ca.key -in tmp/$i.csr -out tmp/$i-ca-signed.crt -days 365 -CAcreateserial -passin pass:datahub  >/dev/null 2>&1
 
@@ -35,8 +35,14 @@ do
 
 	keytool -keystore secrets/$i.keystore.jks -alias $i -import -file tmp/$i-ca-signed.crt -storepass datahub -keypass datahub >/dev/null 2>&1
 
+	# Convert keystore to pkscs12
+	keytool -srcstorepass datahub -importkeystore -srckeystore secrets/$i.keystore.jks -destkeystore secrets/$i.keystore.jks -deststoretype pkcs12 -deststorepass datahub  2>&1
+
 	# Create truststore and import the CA cert.
 	keytool -keystore secrets/$i.truststore.jks -alias CARoot -import -noprompt -file tmp/datahub-ca.crt -storepass datahub -keypass datahub >/dev/null 2>&1
+
+	# Convert truststore to pkscs12
+	keytool -srcstorepass datahub -importkeystore -srckeystore secrets/$i.truststore.jks -destkeystore secrets/$i.truststore.jks -deststoretype pkcs12 -deststorepass datahub  2>&1
   echo " OK!"
 done
 
