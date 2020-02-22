@@ -23,10 +23,10 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: '${ZK_HOST}:${ZK_PORT}'
       KAFKA_ADVERTISED_LISTENERS: 'SSL://${BROKER_HOST}:${BROKER_PORT}'
-      KAFKA_SSL_KEYSTORE_FILENAME: broker.keystore.jks
+      KAFKA_SSL_KEYSTORE_FILENAME: kafka-ssl.keystore.jks
       KAFKA_SSL_KEYSTORE_CREDENTIALS: cert_creds
       KAFKA_SSL_KEY_CREDENTIALS: cert_creds
-      KAFKA_SSL_TRUSTSTORE_FILENAME: broker.truststore.jks
+      KAFKA_SSL_TRUSTSTORE_FILENAME: kafka-ssl.truststore.jks
       KAFKA_SSL_TRUSTSTORE_CREDENTIALS: cert_creds
       KAFKA_SSL_CLIENT_AUTH: 'required'
       KAFKA_SECURITY_PROTOCOL: SSL
