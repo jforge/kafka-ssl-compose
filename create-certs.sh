@@ -14,7 +14,7 @@ openssl req -new -x509 -keyout tmp/datahub-ca.key -out tmp/datahub-ca.crt -days 
 
 echo " OK!"
 
-for i in 'broker' 'producer' 'consumer' 'schema-registry'
+for i in 'kafka-ssl' 'producer' 'consumer' 'schema-registry'
 do
 	printf "Creating cert and keystore of $i..."
 	# Create keystores
@@ -27,7 +27,7 @@ do
 				 -keypass datahub  >/dev/null 2>&1
 
 	# Create CSR, sign the key and import back into keystore
-	keytool -keystore secrets/$i.keystore.jks -alias $i -certreq -file tmp/$i.csr -storepass datahub -keypass datahub >/dev/null 2>&1
+	keytool -keystore secrets/$i.keystore.jks -alias $i -certreq -file tmp/$i.csr -storetype pkcs12 -storepass datahub -keypass datahub >/dev/null 2>&1
 
 	openssl x509 -req -CA tmp/datahub-ca.crt -CAkey tmp/datahub-ca.key -in tmp/$i.csr -out tmp/$i-ca-signed.crt -days 365 -CAcreateserial -passin pass:datahub  >/dev/null 2>&1
 
