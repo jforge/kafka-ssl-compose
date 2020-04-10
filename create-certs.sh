@@ -47,6 +47,6 @@ do
 done
 
 echo "datahub" > secrets/cert_creds
-rm -rf tmp
+#rm -rf tmp
 
 echo "SUCCEEDED"

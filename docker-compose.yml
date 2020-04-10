@@ -32,6 +32,7 @@ services:
       KAFKA_SECURITY_PROTOCOL: SSL
       KAFKA_SECURITY_INTER_BROKER_PROTOCOL: SSL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_SUPER_USERS: User:CN=producer,OU=test,O=datahub,L=paris,C=fr;User:CN=consumer,OU=test,O=datahub,L=paris,C=fr;User:CN=schema-registry,OU=test,O=datahub,L=paris,C=fr;
     volumes:
       - ./secrets:/etc/kafka/secrets
 
