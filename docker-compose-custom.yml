@@ -324,6 +324,24 @@ services:
 </configuration>
 
 ===========
-
+{
+    "name": "hdfs-sink-schema-1",
+    "connector.class": "io.confluent.connect.hdfs.HdfsSinkConnector",
+    "tasks.max": 1,
+    "topics": "hub-notification-pix",    
+    "flush.size": 5,
+    "hdfs.url": "hdfs://nameservice1/dados/no-multischema",
+    "hadoop.conf.dir": "/etc/kafka-connect",
+    "partition.duration.ms": "86400000",
+    "partition.field.name": "anomesdia",
+    "partitioner.class": "io.confluent.connect.storage.partitioner.TimeBasedPartitioner",
+    "path.format": "'anomesdia'=YYYYMMdd",
+    "locale": "pt",
+    "timezone": "America/Buenos_Aires",
+    "value.converter": "io.confluent.connect.avro.AvroConverter",  
+    "value.converter.schema.registry.url": "http://schema-registry:8181",
+    "value.converter.value.subject.name.strategy": "io.confluent.kafka.serializers.subject.TopicRecordNameStrategy",
+    "schema.record.name": "br.com.itau.ikafka.KafkaClienteV1"
+}
 
 ===========
