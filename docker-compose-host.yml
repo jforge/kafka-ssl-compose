@@ -9,7 +9,7 @@ services:
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_CLIENT_PORT: ${ZK_PORT}
 
-  kafka-ssl:
+  broker:
     image: confluentinc/cp-kafka:latest
     container_name: ${BROKER_HOST}
     network_mode: host
